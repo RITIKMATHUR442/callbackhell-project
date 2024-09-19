@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Cooking Process</title>
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(45deg, #f39c12, #f1c40f);
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #ecf0f1;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        #output {
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            max-width: 600px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            font-size: 1.2rem;
+            padding: 10px 0;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        .flour { color: #e74c3c; }
+        .water { color: #3498db; }
+        .yeast { color: #2ecc71; }
+        .salt { color: #f39c12; }
+        .oliveoil { color: #16a085; }
+        .toppings { color: #9b59b6; }
+        .final { color: #e67e22; font-weight: bold; }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            margin: 10px;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #27ae60;
+        }
+
+        .reset-btn {
+            background-color: #e74c3c;
+        }
+
+        .reset-btn:hover {
+            background-color: #c0392b;
+        }
+
+        @keyframes fadeIn {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+
+            button {
+                font-size: 0.9rem;
+                padding: 8px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Cooking Process</h1>
+    <div id="output"></div>
+
+    <button id="startBtn">Start Cooking</button>
+    <button id="resetBtn" class="reset-btn">Reset</button>
+
+    <script>
+        const output = document.getElementById('output');
+        const startBtn = document.getElementById('startBtn');
+        const resetBtn = document.getElementById('resetBtn');
+
+        
+        function addIngredient(ingredient, className, callback) {
+            setTimeout(() => {
+                const ingredientElement = document.createElement('p');
+                ingredientElement.innerHTML = `Added ${ingredient}`;
+                ingredientElement.classList.add(className);
+                output.appendChild(ingredientElement);
+                callback();
+            }, 1000);
+        }
+
+        function startCooking() {
+            output.innerHTML = ''; 
+            addIngredient('Flour', 'flour', () => {
+                addIngredient('Water', 'water', () => {
+                    addIngredient('Yeast', 'yeast', () => {
+                        addIngredient('Salt', 'salt', () => {
+                            addIngredient('Olive Oil', 'oliveoil', () => {
+                                addIngredient('Toppings', 'toppings', () => {
+                                    const finalMessage = document.createElement('p');
+                                    finalMessage.innerHTML = `Pizza is ready to bake! 🍕`;
+                                    finalMessage.classList.add('final');
+                                    output.appendChild(finalMessage);
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        }
+
+       
+        function resetCooking() {
+            output.innerHTML = '<p>Cooking process reset.</p>';
+        }
+
+        startBtn.addEventListener('click', startCooking);
+        resetBtn.addEventListener('click', resetCooking);
+    </script>
+</body>
+</html>
